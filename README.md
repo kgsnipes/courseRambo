@@ -5,7 +5,7 @@ a courseware javascript plugin.
 
 the demo is provided in the coursePlayer.html.
 
-the HTML file has a json structure of the course that needs to be provided to the plugin. 
+the HTML file has a json structure of the course in the textarea that needs to be provided to the plugin. 
 
 this plugin on the finish of the course will call a callback which returns the course json object filled with values which could be used for further evaluation.
 

@@ -65,11 +65,12 @@ var coursePlayer=function (course,finishCallback)
 	self.coursePlayerWidth=$(document).width();
 	self.coursePlayerHeight=$(document).height();
 	
+	$("<div id=\"coursePlayer\"></div>").appendTo("body");
 	self.coursePlayer=$("#coursePlayer");
 	self.coursePlayer.empty();
 	
 	//coursePlayer.css({'background-color':'#1d1e19','position':'fixed','top':$(document).height()*0.05+'px','left':$(document).width()*0.10+'px'}).width(coursePlayerWidth).height(coursePlayerHeight);
-	self.coursePlayer.css({'background-color':'#1d1e19','position':'fixed','top':'0px','left':'0px'}).width(self.coursePlayerWidth).height(self.coursePlayerHeight);
+	self.coursePlayer.css({'background-color':'white','position':'fixed','top':'0px','left':'0px'}).width(self.coursePlayerWidth).height(self.coursePlayerHeight);
 	
 
 	$("<a id=\"closeButton\">close</a>").appendTo(self.coursePlayer);
@@ -82,14 +83,14 @@ var coursePlayer=function (course,finishCallback)
 
 
 
-	$("<h4 class=\"topCourseName\" style=\"color:white;position:absolute;top:0px;\">"+self.courseWare.courseName.toLowerCase()+"</h4>").appendTo(self.coursePlayer);
+	$("<h4 class=\"topCourseName\" style=\"color:#333;position:absolute;top:0px;left:"+self.coursePlayerWidth*0.05+"px;\">"+self.courseWare.courseName.toLowerCase()+"</h4>").appendTo(self.coursePlayer);
 	self.showWelcomeMsg();
 	self.topcourseName=$(".topCourseName");
-	$("<div id=\"chapterContainer\"  style=\"overflow:auto;color:white;background-color:#333333;position:absolute;border:1px solid gray;width:"+self.coursePlayerWidth*0.90+"px; height: "+self.coursePlayerHeight*0.80+"px;top:"+self.coursePlayer.height()+"px;left:"+self.coursePlayer.width()*0.05+"px\"></div>").appendTo(self.coursePlayer);
-	$("<div id=\"chaptersBrowserContainer\"  style=\"overflow:auto;background-color:#333333;position:absolute;border:1px solid gray;width:"+self.coursePlayerWidth*0.20+"px; height: "+self.coursePlayerHeight*0.80+"px;top:"+self.coursePlayer.height()*0.12+"px;left:-"+self.coursePlayer.width()*0.22+"px\"></div>").appendTo(self.coursePlayer);
-	$("<div id=\"chapterQuestionContainer\"  style=\"overflow:auto;background-color:#333333;position:absolute;border:1px solid gray;width:"+self.coursePlayerWidth*0.50+"px; height: "+self.coursePlayerHeight*0.80+"px;top:"+self.coursePlayer.height()*0.12+"px;left:"+self.coursePlayer.width()+"px\"></div>").appendTo(self.coursePlayer);
-	$("<div id=\"chaptersBrowserContainerButton\"  style=\"display:none;position:absolute;width:"+self.coursePlayerWidth*0.10+"px; height: "+self.coursePlayerHeight*0.05+"px;top:"+self.coursePlayer.height()*0.08+"px;left:0px;color:white;\"><label style=\"font-size:15px;background-color:#444;padding:5px;\">Chapters</label></div>").appendTo(self.coursePlayer);
-	$("<div id=\"chapterQuestionContainerButton\"  style=\"display:none;position:absolute;width:"+self.coursePlayerWidth*0.10+"px; height: "+self.coursePlayerHeight*0.05+"px;top:"+self.coursePlayer.height()*0.08+"px;left:"+self.coursePlayer.width()*0.93+"px;color:white;\"><label style=\"font-size:15px;background-color:#444;padding:5px;\">Questions</label></div>").appendTo(self.coursePlayer);
+	$("<div id=\"chapterContainer\"  style=\"overflow:auto;color:#333;background-color:white;position:absolute;border:3px solid #eee;width:"+self.coursePlayerWidth*0.90+"px; height: "+self.coursePlayerHeight*0.80+"px;top:"+self.coursePlayer.height()+"px;left:"+self.coursePlayer.width()*0.05+"px\"></div>").appendTo(self.coursePlayer);
+	$("<div id=\"chaptersBrowserContainer\"  style=\"overflow:auto;color:#333;background-color:white;position:absolute;border:3px solid #eee;width:"+self.coursePlayerWidth*0.30+"px; height: "+self.coursePlayerHeight*0.80+"px;top:"+self.coursePlayer.height()*0.12+"px;left:-"+self.coursePlayer.width()*0.40+"px\"></div>").appendTo(self.coursePlayer);
+	$("<div id=\"chapterQuestionContainer\"  style=\"overflow:auto;color:#333;background-color:white;position:absolute;border:3px solid #eee;width:"+self.coursePlayerWidth*0.50+"px; height: "+self.coursePlayerHeight*0.80+"px;top:"+self.coursePlayer.height()*0.12+"px;left:"+self.coursePlayer.width()+"px\"></div>").appendTo(self.coursePlayer);
+	$("<div id=\"chaptersBrowserContainerButton\"  style=\"display:none;position:absolute;width:"+self.coursePlayerWidth*0.10+"px; height: "+self.coursePlayerHeight*0.05+"px;top:"+self.coursePlayer.height()*0.08+"px;left:0px;color:white;\"><label style=\"font-size:15px;background-color:#4cc33b;padding:5px;\">Chapters</label></div>").appendTo(self.coursePlayer);
+	$("<div id=\"chapterQuestionContainerButton\"  style=\"display:none;position:absolute;width:"+self.coursePlayerWidth*0.10+"px; height: "+self.coursePlayerHeight*0.05+"px;top:"+self.coursePlayer.height()*0.08+"px;left:"+self.coursePlayer.width()*0.93+"px;color:white;\"><label style=\"font-size:15px;background-color:#4cc33b;padding:5px;\">Questions</label></div>").appendTo(self.coursePlayer);
 
 	self.chapterContainer=$("#chapterContainer");
 	self.chaptersBrowserContainer=$("#chaptersBrowserContainer");
@@ -113,7 +114,7 @@ var coursePlayer=function (course,finishCallback)
 
 	self.chaptersBrowserContainerButton.click(function(){
 		if(self.chaptersBrowserContainer.position().left>=-self.coursePlayer.width()*0.01)
-			self.chaptersBrowserContainer.animate({left:-self.coursePlayer.width()*0.30+"px"},500);
+			self.chaptersBrowserContainer.animate({left:-self.coursePlayer.width()*0.40+"px"},500);
 		else
 			self.chaptersBrowserContainer.animate({left:self.coursePlayer.width()*0.02+"px"},500);
 	});
@@ -159,7 +160,7 @@ var coursePlayer=function (course,finishCallback)
 
 
 
- 		$("<h5 class=\"pointsContainer\" style=\"color:white;position:absolute;top:"+self.coursePlayerHeight*0.05+"px;left:"+self.coursePlayer.width()*0.30+"px\">total points : "+self.getTotalPointsForCourse()+"  points scored: "+self.getPointsForCourse()+"</h5>").appendTo(self.coursePlayer);
+ 		$("<h5 class=\"pointsContainer\" style=\"color:#333;position:absolute;top:"+self.coursePlayerHeight*0.05+"px;left:"+self.coursePlayer.width()*0.30+"px\">total points : "+self.getTotalPointsForCourse()+"  points scored: "+self.getPointsForCourse()+"</h5>").appendTo(self.coursePlayer);
 
  		self.pointsContainer=$(".pointsContainer");
 
@@ -167,11 +168,13 @@ var coursePlayer=function (course,finishCallback)
  		this.coursePlayer.show();
 
 
+
+
 	};
 	this.showWelcomeMsg=function()
 	{
 		self=this;
-		$("<div class=\"welcomeMsgDiv\" style=\"text-align:center;display:none;position:absolute;color:white;top:"+self.coursePlayer.height()*0.40+"px;left:"+self.coursePlayer.width()*0.40+"px\"><h3 class=\"welcomeMsg\" >"+self.courseWare.welcomeMessage.toLowerCase()+"</h3><button class=\"courseStartButton\" style=\"font-family: 'Strait', sans-serif;padding:10px;font-size:20px;\">start</button></div>").appendTo(self.coursePlayer);
+		$("<div class=\"welcomeMsgDiv\" style=\"text-align:center;display:none;position:absolute;color:#333;top:"+self.coursePlayer.height()*0.40+"px;left:"+self.coursePlayer.width()*0.40+"px\"><h3 class=\"welcomeMsg\" >"+self.courseWare.welcomeMessage.toLowerCase()+"</h3><button class=\"courseStartButton\" style=\"font-family: 'Strait', sans-serif;padding:10px;font-size:20px;border: 1px solid #4cc33b;background-color: #4cc33b;color:white;\">start</button></div>").appendTo(self.coursePlayer);
 		$(".welcomeMsgDiv .courseStartButton").click(function(){
 			$(".welcomeMsgDiv").fadeOut(500,function(){ $(this).remove(); self.loadContainers(); self.loadChaptersInBrowser();
 			self.loadNextChapter();
@@ -209,17 +212,20 @@ var coursePlayer=function (course,finishCallback)
  		self.chaptersBrowserContainer.empty();
  		$("<ul style=\"color:white;width:"+self.chaptersBrowserContainer.width()+"px;list-style:none;padding:0px;margin:0px;\" class=\"chapterList\"></ul>").appendTo(self.chaptersBrowserContainer);
 
+ 		var count=1;
  		$.each(course["chapters"],function(){
  			if(this.lockState)
- 			$("<li style=\"border:1px solid #eeeeee;cursor:pointer;width:"+self.chaptersBrowserContainer.width()+"px;padding:10px;background-color:#555555;font-weight:boldl\">"+this.chapterName+"</li>").appendTo(self.chaptersBrowserContainer.children(".chapterList")[0]);
+ 			$("<li style=\"border:1px solid #eeeeee;cursor:pointer;width:"+self.chaptersBrowserContainer.width()+"px;padding:10px;background-color:white;font-weight:boldl\"><label style=\"color:white;margin:10px;background-color:#4cc33b;text-align: center;border-radius: 999px;padding-left: 9px;padding-right: 9px;padding-top: 5px;padding-bottom: 5px;\" >"+count+"</label><label>"+this.chapterName+"</label></li>").appendTo(self.chaptersBrowserContainer.children(".chapterList")[0]);
  		else
- 			$("<li style=\"border:1px solid #eeeeee;cursor:pointer;width:"+self.chaptersBrowserContainer.width()+"px;padding:10px;background-color:#555555;\">"+this.chapterName+"</li>").appendTo(self.chaptersBrowserContainer.children(".chapterList")[0]);
+ 			$("<li style=\"border:1px solid #eeeeee;cursor:pointer;width:"+self.chaptersBrowserContainer.width()+"px;padding:10px;background-color:white;\"><label style=\"color:white;margin:10px;background-color:#4cc33b;text-align: center;border-radius: 999px;padding-left: 9px;padding-right: 9px;padding-top: 5px;padding-bottom: 5px;\" >"+count+"</label><label>"+this.chapterName+"</label></li>").appendTo(self.chaptersBrowserContainer.children(".chapterList")[0]);
 
  			$(self.chaptersBrowserContainer.children(".chapterList")[0]).children().last().click(function(){
- 				self.loadChapterInContainer(self.getChapterIndex($(this).text()));
+ 				self.loadChapterInContainer(self.getChapterIndex($(this).children("label").last().text()));
  				self.chaptersBrowserContainerButton.click();
 
  			});
+
+ 			count++;
  		});
 
 
@@ -237,11 +243,11 @@ var coursePlayer=function (course,finishCallback)
  		self.topcourseName.text(self.courseWare.courseName+'  -  '+self.courseWare.chapters[index].chapterName);
  		///self.removeYoutubeApis();
  		self.chapterContainer.css({'text-align':'none'});
- 		$(self.chaptersBrowserContainer.children(".chapterList")[0]).children().css({'color':'white','background-color':'#555555'});
- 		$($(self.chaptersBrowserContainer.children(".chapterList")[0]).children()[index]).css({'color':'yellow','background-color':'#1d1e19'});
+ 		$(self.chaptersBrowserContainer.children(".chapterList")[0]).children().css({'color':'#333','background-color':'white'});
+ 		$($(self.chaptersBrowserContainer.children(".chapterList")[0]).children()[index]).css({'color':'black','background-color':'#eee'});
  		if(self.courseWare.chapters[index].type=='webpage')
  		{
- 			$("<iframe src=\""+self.courseWare.chapters[index].url+"\" width=\""+self.chapterContainer.width()+"\" height=\""+self.chapterContainer.height()+"\"/>").appendTo(self.chapterContainer);
+ 			$("<iframe src=\""+self.courseWare.chapters[index].url+"\" style=\"border:1px solid white;\" width=\""+self.chapterContainer.width()+"\" height=\""+self.chapterContainer.height()+"\"/>").appendTo(self.chapterContainer);
  			/*$("<div id=\"mousemovediv\" style=\"width:100%;height:100%;position:absolute;top:0px;left:0px;background-color:black;display:none;opacity:0.5;\"></div>").appendTo(self.chapterContainer);
  			self.chapterContainer.mousemove(function(e){
  				if(!$("#mousemovediv").is(":visible"))
@@ -371,9 +377,9 @@ var coursePlayer=function (course,finishCallback)
  		$.each(self.courseWare.chapters[index].questions,function(){
 
  			if(this.answered && this.isCorrect)
- 				$("<li style=\"padding:10px;color:green;border:1px solid #444;width:"+self.chapterQuestionContainer.width()+"px;\" class=\"q_"+count+"_"+index+"\"></li>").appendTo($(self.chapterQuestionContainer.children(".questionsList")[0]));
+ 				$("<li style=\"padding:10px;color:green;border:1px solid #eee;width:"+self.chapterQuestionContainer.width()+"px;\" class=\"q_"+count+"_"+index+"\"></li>").appendTo($(self.chapterQuestionContainer.children(".questionsList")[0]));
  			else
- 				$("<li style=\"padding:10px;color:white;border:1px solid #444;width:"+self.chapterQuestionContainer.width()+"px;\" class=\"q_"+count+"_"+index+"\"></li>").appendTo($(self.chapterQuestionContainer.children(".questionsList")[0]));
+ 				$("<li style=\"padding:10px;color:#333;border:1px solid #eee;width:"+self.chapterQuestionContainer.width()+"px;\" class=\"q_"+count+"_"+index+"\"></li>").appendTo($(self.chapterQuestionContainer.children(".questionsList")[0]));
  			
 
  			li=$(self.chapterQuestionContainer.children(".questionsList")[0]).children().last();
@@ -435,7 +441,7 @@ var coursePlayer=function (course,finishCallback)
  			count++;
  		});
 
- 		$("<li><button class=\"evalBtn_"+index+"\" style=\"font-family: 'Strait', sans-serif;padding:10px;font-size:20px;\">evaluate</button></li>").appendTo($(self.chapterQuestionContainer.children(".questionsList")[0]));
+ 		$("<li><button class=\"evalBtn_"+index+"\" style=\"font-family: 'Strait', sans-serif;padding:10px;font-size:20px;border: 1px solid #4cc33b;background-color: #4cc33b;color:white;\">evaluate</button></li>").appendTo($(self.chapterQuestionContainer.children(".questionsList")[0]));
 
  		$(self.chapterQuestionContainer.children(".questionsList")[0]).children().last().children().first().click(function()
  		{
@@ -459,14 +465,14 @@ var coursePlayer=function (course,finishCallback)
  			{
  				if($(lis[count]).children("input[type='text']").length==1 && self.trimString($(lis[count]).children("input[type='text']").first().attr("value")).length>0 && self.trimString($(lis[count]).children("input[type='text']").first().attr("value"))==this.answer)
  				{
- 					$(lis[count]).css({'color':'green'});
+ 					$(lis[count]).css({'color':'#4cc33b'});
  					this.answered=true;
  					this.isCorrect=true;
  					this.userAnswer=self.trimString($(lis[count]).children("input[type='text']").first().attr("value"));
  				}
  				else if($(lis[count]).children("input[type='text']").length==1 && self.trimString($(lis[count]).children("input[type='text']").first().attr("value")).length>0 && self.trimString($(lis[count]).children("input[type='text']").first().attr("value"))!=this.answer)
  				{
- 					$(lis[count]).css({'color':'white'});
+ 					$(lis[count]).css({'color':'#333'});
  					this.answered=true;
  					this.isCorrect=false;
  					this.userAnswer=self.trimString($(lis[count]).children("input[type='text']").first().attr("value"));
@@ -476,16 +482,16 @@ var coursePlayer=function (course,finishCallback)
  			}
  			else if(this.type=='options')
  			{
- 				if($(lis[count]).children("input[type='radio']:checked").length==1 && self.trimString($(lis[count]).children("input[type='radio']:checked").first().attr("value")).length>0 && self.trimString($(lis[count]).children("input[type='radio']:checked").first().attr("value")).toLowerCase()==this.answer.toLowerCase())
+ 				if($(lis[count]).children("input[type='radio']:checked").length==1 && self.trimString($(lis[count]).children("input[type='radio']:checked").first().attr("value")).length>0 && self.trimString($(lis[count]).children("input[type='radio']:checked").first().attr("value")).toLowerCase()==self.trimString(this.answer.toLowerCase()))
  				{
- 					$(lis[count]).css({'color':'green'});
+ 					$(lis[count]).css({'color':'#4cc33b'});
  					this.answered=true;
  					this.isCorrect=true;
  					this.userAnswer=self.trimString($(lis[count]).children("input[type='radio']:checked").first().attr("value"));
  				}
- 				else if($(lis[count]).children("input[type='radio']:checked").length==1 && self.trimString($(lis[count]).children("input[type='radio']:checked").first().attr("value")).length>0 && self.trimString($(lis[count]).children("input[type='radio']:checked").first().attr("value")).toUpperCase()!=this.answer.toLowerCase())
+ 				else if($(lis[count]).children("input[type='radio']:checked").length==1 && self.trimString($(lis[count]).children("input[type='radio']:checked").first().attr("value")).length>0 && self.trimString($(lis[count]).children("input[type='radio']:checked").first().attr("value")).toUpperCase()!=self.trimString(this.answer.toLowerCase()))
  				{
- 					$(lis[count]).css({'color':'white'});
+ 					$(lis[count]).css({'color':'#333'});
  					this.answered=true;
  					this.isCorrect=false;
  					this.userAnswer=self.trimString($(lis[count]).children("input[type='radio']:checked").first().attr("value"));
@@ -526,13 +532,13 @@ var coursePlayer=function (course,finishCallback)
 
 	 					if(correctAnswers==qu.answer.length)
 	 					{
-	 						$(lis[count]).css({'color':'green'});
+	 						$(lis[count]).css({'color':'#4cc33b'});
 	 						qu.answered=true;
 	 						qu.isCorrect=true;
 	 					}
 	 					else
 	 					{
-	 						$(lis[count]).css({'color':'white'});
+	 						$(lis[count]).css({'color':'#333'});
 	 						qu.answered=true;
 	 						qu.isCorrect=false;
 	 					}
@@ -540,7 +546,7 @@ var coursePlayer=function (course,finishCallback)
  					}
  					else
  					{
- 						$(lis[count]).css({'color':'white'});
+ 						$(lis[count]).css({'color':'#333'});
  					}
  				}
 
@@ -577,7 +583,10 @@ var scored=self.getPointsForCourse();
  			top:self.coursePlayer.height()*0.12+"px"
 
 
- 		},500);
+ 		},500,function(){
+
+
+ 		});
 
  	};
 

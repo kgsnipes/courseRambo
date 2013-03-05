@@ -20,7 +20,7 @@
 
 		$(".startCourseInPlugin").click(function(){
 
-			c=new coursePlayer(JSON.parse($(".courseContent").val()),function(coursee){console.log(coursee); $(".courseContent").show();});
+			c=new coursePlayer(JSON.parse($(".courseContent").val()),function(coursee){ $(".courseContent").show();});
 			$(".courseContent").hide();
 
 		});
@@ -39,10 +39,12 @@
 
 <textarea class="courseContent" style="width:500px;height:500px;">{
 	"courseName":"cloud computing",
+	"hasTimeLimit":true,
+	"timeLimit":3600,
 	"welcomeMessage":"welcome to cloud computing",
 	"chapters":[
 		{
-			"chapterName":"definition of cloud computing",
+			"chapterName":"introduction - cloud computing",
 			"type":"webpage",
 			"url":"http://en.wikipedia.org/wiki/Cloud_computing",
 			"lockState":true,
@@ -76,7 +78,7 @@
 			]
 		},
 		{
-			"chapterName":"video on cloud computing",
+			"chapterName":"cloud computing video",
 			"type":"youtubeiframeembed",
 			"text":"<iframe width=\"853\" height=\"480\" src=\"http://www.youtube.com/embed/ae_DKNwK_ms\" frameborder=\"0\" allowfullscreen></iframe>",
 			"lockState":true,
@@ -97,7 +99,7 @@
 
 <button class="startCourseInPlugin">start course</button>
 
-<div id="coursePlayer"></div>
+
 
 </body>
 </html>
