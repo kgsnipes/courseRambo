@@ -56,6 +56,8 @@ var coursePlayer=function (course,finishCallback)
 	this.topcourseName=null;
 	this.evaluateFinishButton=null;
 	this.youtubeVideoSlider=null;
+	this.listOfExistingStyles=new Array();
+	this.listOfExistingScripts=new Array();
 	this.init=function()
 	{
 		self=this;
@@ -65,9 +67,10 @@ var coursePlayer=function (course,finishCallback)
 	self.coursePlayerWidth=$(document).width();
 	self.coursePlayerHeight=$(document).height();
 	
-	$("<div id=\"coursePlayer\"></div>").appendTo("body");
+	$("<div id=\"coursePlayer\"></div>").appendTo($("body")[0]);
 	self.coursePlayer=$("#coursePlayer");
 	self.coursePlayer.empty();
+	self.coursePlayer.css({'z-index':'9999','font-family':"'Strait', sans-serif"});
 	
 	//coursePlayer.css({'background-color':'#1d1e19','position':'fixed','top':$(document).height()*0.05+'px','left':$(document).width()*0.10+'px'}).width(coursePlayerWidth).height(coursePlayerHeight);
 	self.coursePlayer.css({'background-color':'white','position':'fixed','top':'0px','left':'0px'}).width(self.coursePlayerWidth).height(self.coursePlayerHeight);
@@ -165,9 +168,9 @@ var coursePlayer=function (course,finishCallback)
  		self.pointsContainer=$(".pointsContainer");
 
 
- 		this.coursePlayer.show();
+ 		self.coursePlayer.show();
 
-
+ 		self.removeOtherScriptsAndStyles();
 
 
 	};
@@ -215,9 +218,9 @@ var coursePlayer=function (course,finishCallback)
  		var count=1;
  		$.each(course["chapters"],function(){
  			if(this.lockState)
- 			$("<li style=\"border:1px solid #eeeeee;cursor:pointer;width:"+self.chaptersBrowserContainer.width()+"px;padding:10px;background-color:white;font-weight:boldl\"><label style=\"color:white;margin:10px;background-color:#4cc33b;text-align: center;border-radius: 999px;padding-left: 9px;padding-right: 9px;padding-top: 5px;padding-bottom: 5px;\" >"+count+"</label><label>"+this.chapterName+"</label></li>").appendTo(self.chaptersBrowserContainer.children(".chapterList")[0]);
+ 			$("<li style=\"border:1px solid #eeeeee;cursor:pointer;width:"+self.chaptersBrowserContainer.width()+"px;padding:10px;background-color:white;font-weight:boldl\"><label style=\"color:white;margin:10px;background-color:#4cc33b;text-align: center;border-radius: 999px;padding-left: "+(count.toString().length+9)+"px;padding-right: "+(count.toString().length+9)+"px;padding-top: "+(count.toString().length*5)+"px;padding-bottom: "+(count.toString().length*5)+"px;\" >"+count+"</label><label>"+this.chapterName+"</label></li>").appendTo(self.chaptersBrowserContainer.children(".chapterList")[0]);
  		else
- 			$("<li style=\"border:1px solid #eeeeee;cursor:pointer;width:"+self.chaptersBrowserContainer.width()+"px;padding:10px;background-color:white;\"><label style=\"color:white;margin:10px;background-color:#4cc33b;text-align: center;border-radius: 999px;padding-left: 9px;padding-right: 9px;padding-top: 5px;padding-bottom: 5px;\" >"+count+"</label><label>"+this.chapterName+"</label></li>").appendTo(self.chaptersBrowserContainer.children(".chapterList")[0]);
+ 			$("<li style=\"border:1px solid #eeeeee;cursor:pointer;width:"+self.chaptersBrowserContainer.width()+"px;padding:10px;background-color:white;\"><label style=\"color:white;margin:10px;background-color:#4cc33b;text-align: center;border-radius: 999px;padding-left: "+(count.toString().length+9)+"px;padding-right: "+(count.toString().length+9)+"px;padding-top: "+(count.toString().length*5)+"px;padding-bottom: "+(count.toString().length*5)+"px;\" >"+count+"</label><label>"+this.chapterName+"</label></li>").appendTo(self.chaptersBrowserContainer.children(".chapterList")[0]);
 
  			$(self.chaptersBrowserContainer.children(".chapterList")[0]).children().last().click(function(){
  				self.loadChapterInContainer(self.getChapterIndex($(this).children("label").last().text()));
@@ -294,7 +297,7 @@ var coursePlayer=function (course,finishCallback)
  			$(self.chapterContainer.children("iframe")[0]).attr("id","player");
  			$(self.chapterContainer.children("iframe")[0]).attr("src",$(self.chapterContainer.children("iframe")[0]).attr("src")+"?enablejsapi=1&controls=0&showinfo=0&rel=0");
  			$("<div style=\"position:absolute;top:0px;left:0px;background-color:black;opacity:0.0;width:100%;height:100%;\"></div>").appendTo(self.chapterContainer);
- 			$("<button id=\"youtubePlayerButton\" style=\"font-family: 'Strait', sans-serif;padding:10px;font-size:20px;position:absolute;top:90%;left:1%;\">pause</button>").appendTo(self.chapterContainer);
+ 			$("<button id=\"youtubePlayerButton\" style=\"font-family: 'Strait', sans-serif;padding:10px;font-size:20px;position:absolute;top:90%;left:1%;border: 1px solid #4cc33b;background-color: #4cc33b;color:white;\">pause</button>").appendTo(self.chapterContainer);
  			
  			self.youtubePlayerButton=$("#youtubePlayerButton");
  			self.youtubePlayerButton.click(function(){
@@ -746,6 +749,8 @@ var scored=self.getPointsForCourse();
  	this.finishCourse=function()
  	{
  		self=this;
+
+ 		self.restoreOtherScriptsAndStyles();
  		self.courseFinishStatus=true;
  		clearInterval(self.courseTimer);
  			self.courseTimer=null;
@@ -865,7 +870,89 @@ var scored=self.getPointsForCourse();
 
 		return count;
 	};
- 	
+ 	this.removeOtherScriptsAndStyles=function(){
+ 		self=this;
+ 		
+ 		self.listOfExistingStyles=new Array();
+		self.listOfExistingScripts=new Array();
+
+		var scripts = document.getElementsByTagName('script');
+		var links = document.getElementsByTagName('link');
+	    for(i=0;i<scripts.length;i++)
+	    {
+	    	if(scripts[i].src.indexOf("coursePlayer.js")==-1 && scripts[i].src.toLowerCase().indexOf("jquery-")==-1 && scripts[i].src.toLowerCase().indexOf("jquery.js")==-1 )
+	    	{
+	    		self.listOfExistingScripts.push(scripts[i]);
+	    	}
+	    		
+	    }
+
+	    
+	    for(i=0;i<links.length;i++)
+	    {
+	    	if(links[i].href.indexOf("fonts.googleapis.com")==-1)
+	    	{
+	    		self.listOfExistingStyles.push(links[i]);
+	    	}
+	    	
+	    }
+
+	    for(i=0;i<scripts.length;i++)
+	    {
+	    	if(scripts[i].src.indexOf("coursePlayer.js")==-1 && scripts[i].src.toLowerCase().indexOf("jquery-")==-1 && scripts[i].src.toLowerCase().indexOf("jquery.js")==-1 )
+	    	{
+	    		scripts[i].parentNode.removeChild(scripts[i]);
+	    	}
+	    		
+	    }
+
+	    for(i=0;i<links.length;i++)
+	    {
+	    	if(links[i].href.indexOf("fonts.googleapis.com")==-1)
+	    	{
+	    		links[i].parentNode.removeChild(links[i]);
+	    	}
+	    	
+	    }
+
+
+
+ 	};
+
+ 	this.restoreOtherScriptsAndStyles=function(){
+ 		self=this;
+ 		
+ 		if(self.listOfExistingScripts)
+ 		{
+ 			for( i=0;i<self.listOfExistingScripts.length;i++)
+		    {
+		    	
+		    		
+		    	var firstScriptTag = document.getElementsByTagName('script')[0];
+      		firstScriptTag.parentNode.insertBefore(self.listOfExistingScripts[i], firstScriptTag);
+		    		
+		    }
+ 		}
+
+ 		if(self.listOfExistingStyles)
+ 		{
+ 			for( i=0;i<self.listOfExistingStyles.length;i++)
+		    {
+		    	
+		    		var firstScriptTag = document.getElementsByTagName('link')[0];
+      				firstScriptTag.parentNode.insertBefore(self.listOfExistingStyles[i], firstScriptTag);
+		    	
+		    	
+		    }
+ 		}
+		
+	    
+
+	    
+	    
+
+
+ 	};
  	this.init();
 
 };
