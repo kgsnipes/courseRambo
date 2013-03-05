@@ -466,19 +466,19 @@ var coursePlayer=function (course,finishCallback)
  		$.each(self.courseWare.chapters[chapterIndex].questions,function(){
  			if(this.type=='qanda')
  			{
- 				if($(lis[count]).children("input[type='text']").length==1 && self.trimString($(lis[count]).children("input[type='text']").first().attr("value")).length>0 && self.trimString($(lis[count]).children("input[type='text']").first().attr("value"))==this.answer)
+ 				if($(lis[count]).children("input[type='text']").length==1 && self.trimString($(lis[count]).children("input[type='text']").first().val()).length>0 && self.trimString($(lis[count]).children("input[type='text']").first().val())==this.answer)
  				{
  					$(lis[count]).css({'color':'#4cc33b'});
  					this.answered=true;
  					this.isCorrect=true;
- 					this.userAnswer=self.trimString($(lis[count]).children("input[type='text']").first().attr("value"));
+ 					this.userAnswer=self.trimString($(lis[count]).children("input[type='text']").first().val());
  				}
- 				else if($(lis[count]).children("input[type='text']").length==1 && self.trimString($(lis[count]).children("input[type='text']").first().attr("value")).length>0 && self.trimString($(lis[count]).children("input[type='text']").first().attr("value"))!=this.answer)
+ 				else if($(lis[count]).children("input[type='text']").length==1 && self.trimString($(lis[count]).children("input[type='text']").first().val()).length>0 && self.trimString($(lis[count]).children("input[type='text']").first().val())!=this.answer)
  				{
  					$(lis[count]).css({'color':'#333'});
  					this.answered=true;
  					this.isCorrect=false;
- 					this.userAnswer=self.trimString($(lis[count]).children("input[type='text']").first().attr("value"));
+ 					this.userAnswer=self.trimString($(lis[count]).children("input[type='text']").first().val());
 
  				}
 
@@ -511,8 +511,8 @@ var coursePlayer=function (course,finishCallback)
  				{
  					var tmparr=new Array();
  					$($(lis[count]).children("input[type='text']")).each(function(){
- 						if(self.trimString($(this).attr("value")).length>0)
- 							tmparr.push($(this).attr("value"));
+ 						if(self.trimString($(this).val()).length>0)
+ 							tmparr.push($(this).val());
  						
 
  					});
