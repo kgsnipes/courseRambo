@@ -19,7 +19,7 @@
 		$(document).ready(function(){
 
 		$(".startCourseInPlugin").click(function(){
-			c=new courseEditor(JSON.parse($(".courseContent").val()),function(course){console.log(course);});
+			c=new courseEditor(null,function(course){console.log(course);});
 			});
 
 		});
