@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Course Editor</title>
+	<meta name="generator" content="TextMate http://macromates.com/">
+	<meta name="author" content="kaushik ganguly">
+	
+	<link href='http://fonts.googleapis.com/css?family=Strait' rel='stylesheet' type='text/css'>
+
+	<script type="text/javascript" src="jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="courseEditor.js"></script>
+	<script type="text/javascript" src="coursePlayer.js"></script>
+	
+	<script type="text/javascript">
+
+		var courses=new Array();
+		var courseEdit;
+		var coursePlay;
+		
+		$(document).ready(function(){
+
+			refreshCourses();
+
+
+			$("#addNewCourse").click(function(){
+
+				courseEdit=new courseEditor(null,function(course){
+						console.log(course);
+						courses.push(course);
+						localStorage.setItem("courses",JSON.stringify(courses));
+						
+						refreshCourses();
+
+			});
+
+			});
+
+		
+
+		});
+
+
+		function refreshCourses()
+		{
+			$("#courseListing").empty();
+			courses=new Array();
+			if(localStorage.getItem("courses"))
+			{
+				var cc=JSON.parse(localStorage.getItem("courses"))	;
+				
+				$.each(cc,function(i,v){
+
+					courses.push(v);
+
+				});
+			}
+
+			$.each(courses,function(i,v){
+
+				var li=document.createElement("li");
+				$("<label>"+(i+1)+".</label><label dataindex=\""+i+"\">"+v.courseName+"</label><button dataindex=\""+i+"\" class=\"editCourse\">edit</button><button dataindex=\""+i+"\"  class=\"playCourse\">play</button>").appendTo($(li));
+
+				$(li).children(".editCourse").css({'background-color':'gray','border':'1px solid gray','color':'white'}).click(function(){
+					var index=parseInt($(this).prev().attr("dataindex"));
+					console.log(parseInt($(this).prev().attr("dataindex")));
+					courseEdit=new courseEditor(courses[index],function(course){
+						console.log(course);
+						var tmp=new Array();
+						self=this;
+						$.each(courses,function(i,v){
+							console.log("i:"+i+" dataindex: "+index)
+							if(i==index)
+								tmp.push(course);
+							else
+								tmp.push(v);
+						});
+						
+						localStorage.removeItem("courses");
+						console.log('tmp :'+tmp);
+						localStorage.setItem("courses",JSON.stringify(tmp));
+						
+						console.log(localStorage.getItem("courses"));
+						refreshCourses();
+
+					});
+
+				});
+				$(li).children(".playCourse").css({'background-color':'green','border':'1px solid green','color':'white'}).click(function(){
+
+					coursePlay=new coursePlayer(courses[parseInt($(this).prev().prev().attr("dataindex"))],function(coursee){
+					 
+				});
+
+					
+
+			});
+
+				$(li).css({'padding':'10px','width':'800px','background-color':'#eee'});
+				$(li).children().css({'margin':'5px'});
+				$(li).appendTo("#courseListing");
+			});
+
+
+		}
+
+
+	</script>
+
+</head>
+<body>
+<button id="addNewCourse" style="background-color:green;border:1px solid green;color:white;">+add new course</button>
+<ul id="courseListing" style="list-style:none;margin:0px;padding:0px;width:800px;height:600px;overflow:auto;">
+	
+</ul>
+
+</body>
+</html>

@@ -755,7 +755,7 @@ var courseEditor=function (course,generateCallback)
 	{
 		self=this;
 		self.getCourse();
-		self.generatedCourseCallback(self.course);
+		//self.generatedCourseCallback(self.course);
 		//self.editorClose.remove();
 		self.courseEditor.empty();
 		self.courseEditor.remove();

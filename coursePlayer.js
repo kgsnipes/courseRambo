@@ -3,7 +3,7 @@
 function onYouTubeIframeAPIReady() {
 
 	console.log("i am here");
-c.youtubePlayer=new YT.Player('player', {
+coursePlay.youtubePlayer=new YT.Player('player', {
           events: {
             'onReady': function(event){
 
@@ -11,13 +11,13 @@ c.youtubePlayer=new YT.Player('player', {
 		 			event.target.playVideo();
 		 		console.log(event.target.getDuration());
 
-		 		$("<input id=\"youtubeVideoSlider\" type=\"range\" min=\"0\" max=\""+event.target.getDuration()+"\" step=\"5\" value=\"0\" style=\"font-family: 'Strait', sans-serif;font-size:10px;position:absolute;top:96%;left:45%;\" /></div>").appendTo(c.chapterContainer);
-		 		c.youtubeVideoSlider=$("#youtubeVideoSlider");
-		 		c.youtubeVideoSlider.bind("change",function(){
+		 		$("<input id=\"youtubeVideoSlider\" type=\"range\" min=\"0\" max=\""+event.target.getDuration()+"\" step=\"5\" value=\"0\" style=\"font-family: 'Strait', sans-serif;font-size:10px;position:absolute;top:96%;left:45%;\" /></div>").appendTo(coursePlay.chapterContainer);
+		 		coursePlay.youtubeVideoSlider=$("#youtubeVideoSlider");
+		 		coursePlay.youtubeVideoSlider.bind("change",function(){
 
-		 			if(c.youtubePlayer)
+		 			if(coursePlay.youtubePlayer)
 		 			{
-		 				c.youtubePlayer.seekTo(parseInt($(this).attr("value")), true);
+		 				coursePlay.youtubePlayer.seekTo(parseInt($(this).attr("value")), true);
 		 			}
 		 		});
             },
@@ -316,7 +316,7 @@ var coursePlayer=function (course,finishCallback)
  			});
  			if(self.isYoutubeApiLoaded())
  			{
-			 				c.youtubePlayer=new YT.Player('player', {
+			 				self.youtubePlayer=new YT.Player('player', {
 			          events: {
 			            'onReady': function(event){
 
@@ -762,6 +762,7 @@ var scored=self.getPointsForCourse();
  	self.coursePlayer.hide();
 	self.coursePlayer.empty();
 	self.coursePlayer.attr("style","");
+	self.coursePlayer.remove();
  	self.courseWare=null;
 	self.coursePlayerWidth=0;
 	self.coursePlayerHeight=0;
@@ -873,7 +874,7 @@ var scored=self.getPointsForCourse();
  	this.removeOtherScriptsAndStyles=function(){
  		self=this;
  		
- 		self.listOfExistingStyles=new Array();
+ 		/*self.listOfExistingStyles=new Array();
 		self.listOfExistingScripts=new Array();
 
 		var scripts = document.getElementsByTagName('script');
@@ -915,14 +916,14 @@ var scored=self.getPointsForCourse();
 	    	
 	    }
 
-
+*/
 
  	};
 
  	this.restoreOtherScriptsAndStyles=function(){
  		self=this;
  		
- 		if(self.listOfExistingScripts)
+ 		/*if(self.listOfExistingScripts)
  		{
  			for( i=0;i<self.listOfExistingScripts.length;i++)
 		    {
@@ -948,7 +949,7 @@ var scored=self.getPointsForCourse();
 		
 	    
 
-	    
+	    */
 	    
 
 
