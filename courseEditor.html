@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Course Player</title>
+	<meta name="generator" content="TextMate http://macromates.com/">
+	<meta name="author" content="kaushik ganguly">
+	
+	
+
+	<script type="text/javascript" src="jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="courseEditor.js"></script>
+	<script type="text/javascript">
+
+
+		var c;
+		$(document).ready(function(){
+
+		$(".startCourseInPlugin").click(function(){
+			c=new courseEditor(JSON.parse($(".courseContent").val()),function(course){console.log(course);});
+			});
+
+		});
+
+
+
+	</script>
+
+</head>
+<body>
+
+<textarea class="courseContent" style="width:500px;height:500px;display:none;">{
+	"courseName":"cloud computing",
+	"hasTimeLimit":true,
+	"timeLimit":3600,
+	"welcomeMessage":"welcome to cloud computing",
+	"chapters":[
+		{
+			"chapterName":"introduction - cloud computing",
+			"type":"webpage",
+			"url":"http://en.wikipedia.org/wiki/Cloud_computing",
+			"lockState":true,
+			"questions":[
+				{
+				"type":"qanda",
+				"question":"how many service models are there for cloud computing?(provide numeric answer)",
+				"answer":"4",
+				"answered":false,
+				"isCorrect":false,
+				"userAnswer":""
+				},
+				{
+				"type":"options",
+				"question":"which year Amazon web services was launched?",	
+				"options":["2010","2006","1996"],
+				"answer":"2006",
+				"answered":true,
+				"isCorrect":false,
+				"userAnswer":""
+				},
+				{
+				"type":"fillblanks",
+				"question":"To compensate for the costly mainframes, a change was made to allow multiple users to share both the physical access to the computer from multiple terminals as well as to share the CPU time allowed for a greater return on the investment. This eliminated periods of daaash which became known in the industry as daaash .",	
+				"answer":["inactivity","time-sharing"],
+				"answered":false,
+				"isCorrect":false,
+				"userAnswer":[]
+				}
+
+			]
+		},
+		{
+			"chapterName":"cloud computing video",
+			"type":"youtubeiframeembed",
+			"text":"<iframe width=\"853\" height=\"480\" src=\"http://www.youtube.com/embed/ae_DKNwK_ms\" frameborder=\"0\" allowfullscreen></iframe>",
+			"lockState":true,
+			"questions":[
+
+				{
+				"type":"fillblanks",
+				"question":"your apps on cloud work on a daaash datacenter .",	
+				"answer":["shared"],
+				"answered":false,
+				"isCorrect":false,
+				"userAnswer":[]
+				}
+			]
+		}
+	]
+}</textarea>
+
+<button class="startCourseInPlugin">start course editor</button>
+
+</body>
+</html>
