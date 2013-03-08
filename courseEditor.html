@@ -8,7 +8,7 @@
 	<meta name="generator" content="TextMate http://macromates.com/">
 	<meta name="author" content="kaushik ganguly">
 	
-	
+	<link href='http://fonts.googleapis.com/css?family=Strait' rel='stylesheet' type='text/css'>
 
 	<script type="text/javascript" src="jquery-1.7.1.min.js"></script>
 	<script type="text/javascript" src="courseEditor.js"></script>
@@ -19,7 +19,7 @@
 		$(document).ready(function(){
 
 		$(".startCourseInPlugin").click(function(){
-			c=new courseEditor(null,function(course){console.log(course);});
+			c=new courseEditor(JSON.parse($(".courseContent").val()),function(course){console.log(course);});
 			});
 
 		});
@@ -31,7 +31,7 @@
 </head>
 <body>
 
-<textarea class="courseContent" style="width:500px;height:500px;display:none;">{
+<textarea class="courseContent" style="width:500px;height:500px;">{
 	"courseName":"cloud computing",
 	"hasTimeLimit":true,
 	"timeLimit":3600,

@@ -8,9 +8,9 @@ var courseEditor=function (course,generateCallback)
 	//this.givenCourse=null;
 	this.courseEditor=null;
 	this.generatedCourseCallback=generateCallback;
-	this.chapterType=["select","web page","text","youtube video","iframe embed code"];
+	this.chapterType=["select content type","web page","text","youtube video","iframe embed code"];
 	this.chapterTypeSys=["","webpage","text","youtubeiframeembed","iframeembed"];
-	this.questionType=["select","Q&A","choose the right one","fill the blanks"];
+	this.questionType=["select question type","Q&A","choose the right one","fill the blanks"];
 	this.questionTypeSys=["","qanda","options","fillblanks"];
 	this.init=function()
 	{
@@ -18,7 +18,7 @@ var courseEditor=function (course,generateCallback)
 		if($("#courseEditor").length>0)
 			self.flush();
 
-		$("<ul id=\"courseEditor\"></ul>").appendTo($($("body")[0]));
+		$("<ul id=\"courseEditor\" ></ul>").appendTo($($("body")[0]));
 		self.courseEditor=$("#courseEditor");
 		self.courseEditor.width(800).height($(document).height()*0.90);
 		self.courseEditor.css({'position':'absolute','top':(self.courseEditor.height()*0.05)+'px','border':'4px dashed #888','text-align':'center','z-index':'9999','background-color':'#ededed','overflow':'auto','list-style':'none','margin':'0px','padding':'0px'});
@@ -32,7 +32,7 @@ var courseEditor=function (course,generateCallback)
 			self.courseEditor.width($(window).width());
 		}
 
-		$("<li><button id=\"courseEditorClose\" style=\"border:2px dashed #888;padding:5px;float:right;background-color:white\">close</button></li>").appendTo(self.courseEditor);
+		$("<li><button id=\"courseEditorClose\" style=\"border:2px solid red;color:white;padding:5px;float:right;background-color:red;\">close</button></li>").appendTo(self.courseEditor);
 			self.editorClose=$("#courseEditorClose").click(function(){
 
 				self.destroy();
@@ -49,7 +49,7 @@ var courseEditor=function (course,generateCallback)
 		self=this;
 		$("<li class=\"courseName\"><input type=\"text\" style=\"width:"+(self.courseEditor.width()*0.95)+"px;height:30px;\" placeholder=\"course name\" value=\"\"/></li>").appendTo(self.courseEditor);
 		$("<li class=\"welcomeMessage\"><input type=\"text\" style=\"width:"+(self.courseEditor.width()*0.95)+"px;height:30px;\" placeholder=\"welcome msg\" value=\"\"/></li>").appendTo(self.courseEditor);
-		$("<li class=\"courseActions\"><button class=\"addChapterButton\">+ add chapter</button><button class=\"generateButton\">generate</button></li>").appendTo(self.courseEditor);
+		$("<li class=\"courseActions\"><button class=\"addChapterButton\" style=\"border:1px solid #4cc33b;color:white;background-color:#4cc33b;padding:5px;\">+ add chapter</button><button class=\"generateButton\" style=\"border:1px solid #4cc33b;color:white;background-color:#4cc33b;padding:5px;\">generate</button></li>").appendTo(self.courseEditor);
 		$("<li class=\"courseJson\"><textarea style=\"width:"+(self.courseEditor.width()*0.95)+"px;height:100px;\" placeholder=\"course json content\"></textarea></li>").appendTo(self.courseEditor);
 
 			if(self.givenCourse && self.givenCourse.courseName.length>0)
@@ -191,7 +191,7 @@ var courseEditor=function (course,generateCallback)
 		
 		
 
-		$("<div class=\"questionsHeading\" style=\"width:"+($(li).width()*0.98)+"px;border:2px dashed #db8b89;background-color:#eec9c8;\"><label>questions</label><button class=\"addQuestion\">+ add question</button></div>").appendTo($(li));
+		$("<div class=\"questionsHeading\" style=\"width:"+($(li).width()*0.98)+"px;border:2px dashed #db8b89;background-color:#eec9c8;\"><label style=\"color:#333;font-weight:bold;margin:10px;\">Questions</label><button class=\"addQuestion\" style=\"border:1px solid #4cc33b;color:white;background-color:#4cc33b;padding:5px;\">+ add question</button></div>").appendTo($(li));
 
 		$(li).children(".questionsHeading").children(".addQuestion").click(function(){
 
@@ -248,19 +248,20 @@ var courseEditor=function (course,generateCallback)
 				});
 
 				$(questionType).appendTo(div);
+				$(questionType).css({'height':'30px','border':'1px solid #888'});
 
 				var qtupBtn=document.createElement("button");
 			var qtdownBtn=document.createElement("button");
 			var removeqtBtn=document.createElement("button");
 
-			$(removeqtBtn).html("- remove question").attr("class","removeQuestion").click(function(){
+			$(removeqtBtn).html("- remove question").attr("class","removeQuestion").css({'color':'white','border':'1px solid red','background-color':'red','padding':'5px'}).click(function(){
 
 			$(this).parent().remove();
 			
 
 		});
 
-		$(qtupBtn).html("question move up").attr("class","questionUp").click(function(){
+		$(qtupBtn).html("question move up").attr("class","questionUp").css({'color':'white','border':'1px solid #4cc33b','background-color':'#4cc33b','padding':'5px'}).click(function(){
 
 			if($(this).parent().prev().hasClass("question"))
 			{
@@ -269,7 +270,7 @@ var courseEditor=function (course,generateCallback)
 
 		});
 
-		$(qtdownBtn).html("question move down").attr("class","questionDown").click(function(){
+		$(qtdownBtn).html("question move down").attr("class","questionDown").css({'color':'white','border':'1px solid #4cc33b','background-color':'#4cc33b','padding':'5px'}).click(function(){
 			if($(this).parent().next().hasClass("question"))
 			{
 				$($(this).parent()).insertAfter($(this).parent().next());
@@ -284,7 +285,7 @@ var courseEditor=function (course,generateCallback)
 		$(div).children().css({'margin-top':'5px','margin-bottom':'5px'});
 
 
-			$(div).appendTo($(li).children(".questionsHeading"));
+			$(div).insertBefore($(li).children(".questionsHeading").children(".addQuestion"));
 
 		});
 
@@ -297,14 +298,14 @@ var courseEditor=function (course,generateCallback)
 		var removeChapterBtn=document.createElement("button");
 		var chapterActionsLi=document.createElement("div");
 		
-		$(removeChapterBtn).html("- remove chapter").click(function(){
+		$(removeChapterBtn).html("- remove chapter").css({'color':'white','border':'1px solid red','background-color':'red','padding':'5px'}).click(function(){
 
 			$(this).parent().parent().remove();
 			
 
 		});
 
-		$(upBtn).html("chapter move up").click(function(){
+		$(upBtn).html("chapter move up").css({'color':'white','border':'1px solid #4cc33b','background-color':'#4cc33b','padding':'5px'}).click(function(){
 
 			if($(this).parent().parent().prev().hasClass("chapter"))
 			{
@@ -313,7 +314,7 @@ var courseEditor=function (course,generateCallback)
 
 		});
 
-		$(downBtn).html("chapter move down").click(function(){
+		$(downBtn).html("chapter move down").css({'color':'white','border':'1px solid #4cc33b','background-color':'#4cc33b','padding':'5px'}).click(function(){
 			if($(this).parent().parent().next().hasClass("chapter"))
 			{
 				$($(this).parent().parent()).insertAfter($(this).parent().parent().next());
@@ -458,7 +459,7 @@ var courseEditor=function (course,generateCallback)
 		});
 		
 
-		$("<div class=\"questionsHeading\" style=\"width:"+($(li).width()*0.98)+"px;border:2px dashed #db8b89;background-color:#eec9c8;\"><label>questions</label><button class=\"addQuestion\">+ add question</button></div>").appendTo($(li));
+		$("<div class=\"questionsHeading\" style=\"width:"+($(li).width()*0.98)+"px;border:2px dashed #db8b89;background-color:#eec9c8;\"><label style=\"margin:10px;font-weight:bold;\">Questions</label><button class=\"addQuestion\" style=\"color:white;border:1px solid #4cc33b;background-color:#4cc33b;padding:5px;\">+ add question</button></div>").appendTo($(li));
 
 		$(li).children(".questionsHeading").children(".addQuestion").click(function(){
 
@@ -520,14 +521,14 @@ var courseEditor=function (course,generateCallback)
 			var qtdownBtn=document.createElement("button");
 			var removeqtBtn=document.createElement("button");
 
-			$(removeqtBtn).html("- remove question").attr("class","removeQuestion").click(function(){
+			$(removeqtBtn).html("- remove question").attr("class","removeQuestion").css({'color':'white','border':'1px solid red','background-color':'red','padding':'5px'}).click(function(){
 
 			$(this).parent().remove();
 			
 
 		});
 
-		$(qtupBtn).html("question move up").attr("class","questionUp").click(function(){
+		$(qtupBtn).html("question move up").attr("class","questionUp").css({'color':'white','border':'1px solid #4cc33b','background-color':'#4cc33b','padding':'5px'}).click(function(){
 
 			if($(this).parent().prev().hasClass("question"))
 			{
@@ -536,7 +537,7 @@ var courseEditor=function (course,generateCallback)
 
 		});
 
-		$(qtdownBtn).html("question move down").attr("class","questionDown").click(function(){
+		$(qtdownBtn).html("question move down").attr("class","questionDown").css({'color':'white','border':'1px solid #4cc33b','background-color':'#4cc33b','padding':'5px'}).click(function(){
 			if($(this).parent().next().hasClass("question"))
 			{
 				$($(this).parent()).insertAfter($(this).parent().next());
@@ -551,7 +552,8 @@ var courseEditor=function (course,generateCallback)
 		$(div).children().css({'margin-top':'5px','margin-bottom':'5px'});
 
 
-			$(div).appendTo($(li).children(".questionsHeading"));
+			//$(div).appendTo($(li).children(".questionsHeading"));
+			$(div).insertBefore($(li).children(".questionsHeading").children(".addQuestion"));
 
 		});
 
@@ -636,21 +638,21 @@ var courseEditor=function (course,generateCallback)
 				}
 
 				
-				$(div).appendTo($(li).children(".questionsHeading"));
+				$(div).insertBefore($(li).children(".questionsHeading").children(".addQuestion"));
 
 
 			var qtupBtn=document.createElement("button");
 			var qtdownBtn=document.createElement("button");
 			var removeqtBtn=document.createElement("button");
 
-			$(removeqtBtn).html("- remove question").attr("class","removeQuestion").click(function(){
+			$(removeqtBtn).html("- remove question").attr("class","removeQuestion").css({'color':'white','border':'1px solid red','background-color':'red','padding':'5px'}).click(function(){
 
 			$(this).parent().remove();
 			
 
 		});
 
-		$(qtupBtn).html("question move up").attr("class","questionUp").click(function(){
+		$(qtupBtn).html("question move up").attr("class","questionUp").css({'color':'white','border':'1px solid #4cc33b','background-color':'#4cc33b','padding':'5px'}).click(function(){
 
 			if($(this).parent().prev().hasClass("question"))
 			{
@@ -659,7 +661,7 @@ var courseEditor=function (course,generateCallback)
 
 		});
 
-		$(qtdownBtn).html("question move down").attr("class","questionDown").click(function(){
+		$(qtdownBtn).html("question move down").attr("class","questionDown").css({'color':'white','border':'1px solid #4cc33b','background-color':'#4cc33b','padding':'5px'}).click(function(){
 			if($(this).parent().next().hasClass("question"))
 			{
 				$($(this).parent()).insertAfter($(this).parent().next());
@@ -683,14 +685,14 @@ var courseEditor=function (course,generateCallback)
 		var removeChapterBtn=document.createElement("button");
 		var chapterActionsLi=document.createElement("div");
 		
-		$(removeChapterBtn).html("- remove chapter").click(function(){
+		$(removeChapterBtn).html("- remove chapter").css({'color':'white','border':'1px solid red','background-color':'red','padding':'5px'}).click(function(){
 
 			$(this).parent().parent().remove();
 			
 
 		});
 
-		$(upBtn).html("chapter move up").click(function(){
+		$(upBtn).html("chapter move up").css({'color':'white','border':'1px solid #4cc33b','background-color':'#4cc33b','padding':'5px'}).click(function(){
 
 			if($(this).parent().parent().prev().hasClass("chapter"))
 			{
@@ -699,7 +701,7 @@ var courseEditor=function (course,generateCallback)
 
 		});
 
-		$(downBtn).html("chapter move down").click(function(){
+		$(downBtn).html("chapter move down").css({'color':'white','border':'1px solid #4cc33b','background-color':'#4cc33b','padding':'5px'}).click(function(){
 			if($(this).parent().parent().next().hasClass("chapter"))
 			{
 				$($(this).parent().parent()).insertAfter($(this).parent().parent().next());
@@ -726,6 +728,7 @@ var courseEditor=function (course,generateCallback)
 		self.courseEditor.children("li").css({'margin':'15px'});
 		self.courseEditor.children("li").children().css({'margin':'5px'});
 		self.courseEditor.children("li").children("select").css({'border':'1px solid #888'});
+		self.courseEditor.children("li").children(".questionsHeading").children("div.question").children("select").height(30);
 		//self.courseEditor.children("li.chapter").css({'margin':'10px'});
 
 	};
@@ -790,15 +793,15 @@ var courseEditor=function (course,generateCallback)
 							}
 							else if(chap.type=='text')
 							{
-								chap.text=self.trimString($(this).children(".chapterTypeContent").text());
+								chap.text=self.trimString($(this).children(".chapterTypeContent").val());
 							}
 							else if(chap.type=='youtubeiframeembed')
 							{
-								chap.text=self.trimString($(this).children(".chapterTypeContent").text());
+								chap.text=self.trimString($(this).children(".chapterTypeContent").val());
 							}
 							else if(chap.type=='iframeembed')
 							{
-								chap.text=self.trimString($(this).children(".chapterTypeContent").text());
+								chap.text=self.trimString($(this).children(".chapterTypeContent").val());
 							}
 
 
@@ -814,7 +817,7 @@ var courseEditor=function (course,generateCallback)
 									{
 
 										qu.type='qanda';
-										qu.question=$(this).children(".questionQuestion").text();
+										qu.question=$(this).children(".questionQuestion").val();
 										qu.answer=$(this).children(".answer").val();
 										qu.answered=false;
 										qu.isCorrect=false;
@@ -824,7 +827,7 @@ var courseEditor=function (course,generateCallback)
 									else if($(this).attr("questiontype")=='options')
 									{
 										qu.type='options';
-										qu.question=$(this).children(".questionQuestion").text();
+										qu.question=$(this).children(".questionQuestion").val();
 										qu.answer=$(this).children(".answer").val();
 										qu.options=$(this).children(".options").val().split(",");
 										qu.answered=false;
@@ -834,7 +837,7 @@ var courseEditor=function (course,generateCallback)
 									else if($(this).attr("questiontype")=='fillblanks')
 									{
 										qu.type='fillblanks';
-										qu.question=$(this).children(".questionQuestion").text();
+										qu.question=$(this).children(".questionQuestion").val();
 										qu.answer=$(this).children(".answer").val().split(",");
 										qu.answered=false;
 										qu.isCorrect=false;
