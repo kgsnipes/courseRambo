@@ -20,8 +20,14 @@ var courseEditor=function (course,generateCallback)
 
 		$("<ul id=\"courseEditor\" ></ul>").appendTo($($("body")[0]));
 		self.courseEditor=$("#courseEditor");
-		self.courseEditor.width(800).height($(document).height()*0.90);
-		self.courseEditor.css({'position':'absolute','top':(self.courseEditor.height()*0.05)+'px','border':'4px dashed #888','text-align':'center','z-index':'9999','background-color':'#ededed','overflow':'auto','list-style':'none','margin':'0px','padding':'0px'});
+		self.courseEditor.width($(document).width()).height($(document).height());
+
+		//self.courseEditor.width($(document).width()).height($(document).height()*0.90);
+
+		self.courseEditor.css({'position':'absolute','top':'0px','left':'0px','border':'4px dashed #888','text-align':'center','z-index':'9999','background-color':'#ededed','overflow':'auto','list-style':'none','margin':'0px','padding':'0px'});
+
+
+		/*self.courseEditor.css({'position':'absolute','top':(self.courseEditor.height()*0.05)+'px','border':'4px dashed #888','text-align':'center','z-index':'9999','background-color':'#ededed','overflow':'auto','list-style':'none','margin':'0px','padding':'0px'});
 		if($(window).width()>self.courseEditor.width())
 		{
 			self.courseEditor.css({'left':(($(document).width()-self.courseEditor.width())/2)+'px'});
@@ -30,7 +36,7 @@ var courseEditor=function (course,generateCallback)
 		{
 			self.courseEditor.css({'left':'0px'});
 			self.courseEditor.width($(window).width());
-		}
+		}*/
 
 		$("<li><button id=\"courseEditorClose\" style=\"border:2px solid red;color:white;padding:5px;float:right;background-color:red;\">close</button></li>").appendTo(self.courseEditor);
 			self.editorClose=$("#courseEditorClose").click(function(){
