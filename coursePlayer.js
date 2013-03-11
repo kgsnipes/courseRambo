@@ -281,7 +281,7 @@ var coursePlayer=function (course,finishCallback)
  		}
  		else if(self.courseWare.chapters[index].type=='text')
  		{
- 			self.chapterContainer.text(self.courseWare.chapters[index].text);
+ 			self.chapterContainer.html(self.courseWare.chapters[index].text);
  			self.chapterContainer.css({'text-align':'center'});
  			
  		}
