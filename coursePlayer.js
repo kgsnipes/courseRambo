@@ -32,7 +32,7 @@ coursePlay.youtubePlayer=new YT.Player('player', {
 
 var coursePlayer=function (course,finishCallback)
 {
-	this.courseWare=course;
+	this.courseWare=JSON.parse(JSON.stringify(course));
 	this.coursePlayerWidth=0;
 	this.coursePlayerHeight=0;
 	this.coursePlayer=null;
@@ -954,6 +954,11 @@ var scored=self.getPointsForCourse();
 
 
  	};
+
+ 	this.clone = (function(){ 
+  return function (obj) { Clone.prototype=obj; return new Clone() };
+  function Clone(){}
+}());
  	this.init();
 
 };

@@ -91,6 +91,8 @@
 				$(li).children(".playCourse").css({'background-color':'green','border':'1px solid green','color':'white'}).click(function(){
 
 					coursePlay=new coursePlayer(courses[parseInt($(this).prev().prev().attr("dataindex"))],function(coursee){
+
+						//document.location=document.location;
 					 
 				});
 
