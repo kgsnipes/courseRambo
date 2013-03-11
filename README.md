@@ -3,7 +3,7 @@ courseRambo
 
 a courseware javascript plugin.
 
-the demo is provided in the coursePlayer.html.
+the demo is provided in the coursePluginDemo.html.
 
 the HTML file has a json structure of the course in the textarea that needs to be provided to the plugin. 
 
